@@ -8,22 +8,22 @@ defineProps({
 
 <template>
   <svg viewbox="-60 -30 100 100">
-    <line class="rain" x1="27" y1="30" x2="27" y2="50"></line>
-    <line class="rain" x1="38" y1="20" x2="38" y2="40"></line>
-    <line class="rain" x1="49" y1="35" x2="49" y2="60"></line>
-    <circle class="cloud" cx="52" cy="45" r="22"></circle>
-    <circle class="cloud" cx="37" cy="45" r="22"></circle>
-    <circle class="cloud" cx="22" cy="45" r="22"></circle>
-    <circle class="cloud" cx="27" cy="25" r="15"></circle>
-    <circle class="cloud" cx="45" cy="30" r="15"></circle>
+    <line class="rain" x1="39" y1="30" x2="39" y2="50"></line>
+    <line class="rain" x1="50" y1="20" x2="50" y2="40"></line>
+    <line class="rain" x1="61" y1="35" x2="61" y2="60"></line>
+    <circle class="cloud" cx="64" cy="45" r="22"></circle>
+    <circle class="cloud" cx="49" cy="45" r="22"></circle>
+    <circle class="cloud" cx="34" cy="45" r="22"></circle>
+    <circle class="cloud" cx="39" cy="25" r="15"></circle>
+    <circle class="cloud" cx="57" cy="30" r="15"></circle>
   </svg>
 </template>
 
 <style scoped>
 svg {
   width: 100%;
+  height: 100%;
   position: relative;
-  margin: auto;
 }
 .rain {
   width: 2px;

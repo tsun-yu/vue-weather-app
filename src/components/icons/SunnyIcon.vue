@@ -8,13 +8,14 @@ defineProps({
 
 <template>
   <svg viewbox="-50 -50 100 100">
-    <circle class="sun" cx="44" cy="44" r="22"></circle>
+    <circle class="sun" cx="50" cy="50" r="22"></circle>
   </svg>
 </template>
 
 <style scoped>
 svg {
   width: 100%;
+  height: 100%;
   position: relative;
 }
 svg .sun {
