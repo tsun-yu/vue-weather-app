@@ -1,6 +1,13 @@
 <script setup>
+// import dayjs from "dayjs";
 import { ref } from "@vue/reactivity";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 
+// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+// import { ref, computed } from "@vue/reactivity";
+import RainyIcon from "./components/icons/RainyIcon.vue";
+library.add(faUserSecret);
 let api_key = "625d92b4d8d1889d9ae4efc7172270aa";
 let base_url = "https://api.openweathermap.org/data/2.5/";
 const query = ref("");
@@ -14,7 +21,6 @@ const isFirst = (i, arr) => {
 const isLast = (i, arr) => {
   return i != 0 && i === arr.length - 1;
 };
-
 const getData = async () => {
   try {
     const response = await fetch(
@@ -23,6 +29,8 @@ const getData = async () => {
     const data = await response.json();
     // console.log(data);
     if (data.cod === "404") return;
+    const isInResults = results.value.findIndex((v) => v.name === data.name);
+    if (isInResults != -1) return;
     const obj = {
       main: data.main,
       name: data.name,
@@ -35,6 +43,9 @@ const getData = async () => {
     console.log("eee");
   }
 };
+// const currentDate = computed(() => {
+//   return dayjs().format(`MMMM D YYYY`);
+// });
 
 // getData();
 </script>
@@ -55,6 +66,23 @@ const getData = async () => {
     <div class="weatherWrap">
       <div
         class="weatherCard"
+        :class="{
+          'weatherCard--first': isFirst(i, results),
+          'weatherCard--last': isLast(i, results),
+          'weatherCard--only': isOnly(results),
+        }"
+      >
+        <div class="icon">
+          <!-- <RainyIcon /> -->
+        </div>
+        <div class="weatherInfo">
+          <h2>Taipei</h2>
+          <p>April 26 2022</p>
+          <h1>30°C</h1>
+        </div>
+      </div>
+      <!-- <div
+        class="weatherCard"
         v-for="(v, i) of results"
         :class="{
           'weatherCard--first': isFirst(i, results),
@@ -64,9 +92,9 @@ const getData = async () => {
         :key="i"
       >
         <h2>{{ v.name }}</h2>
-        <p>date</p>
+        <p>{{ currentDate }}</p>
         <h1>{{ v.main.temp }}°C</h1>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -116,6 +144,12 @@ const getData = async () => {
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
 }
+.icon {
+  width: 100px;
+  height: 100px;
+  font-size: 2rem;
+  color: #000;
+}
 .weatherWrap {
   width: 80%;
   max-width: 1000px;
@@ -129,6 +163,7 @@ const getData = async () => {
   backdrop-filter: blur(3px);
   transition: 0.4s ease-in;
   margin-bottom: 0.1rem;
+  display: flex;
 }
 .weatherCard--first {
   border-radius: 2rem 2rem 0.25rem 0.25rem;
