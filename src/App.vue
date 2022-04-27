@@ -7,6 +7,7 @@ import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // import { ref, computed } from "@vue/reactivity";
 import RainyIcon from "./components/icons/RainyIcon.vue";
+import SunnyIcon from "./components/icons/SunnyIcon.vue";
 library.add(faUserSecret);
 let api_key = "625d92b4d8d1889d9ae4efc7172270aa";
 let base_url = "https://api.openweathermap.org/data/2.5/";
@@ -74,6 +75,7 @@ const getData = async () => {
       >
         <div class="icon">
           <!-- <RainyIcon /> -->
+          <SunnyIcon />
         </div>
         <div class="weatherInfo">
           <h2>Taipei</h2>

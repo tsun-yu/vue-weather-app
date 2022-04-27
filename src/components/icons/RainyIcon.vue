@@ -22,8 +22,6 @@ defineProps({
 <style scoped>
 svg {
   width: 100%;
-  /* max-width: 40px;
-  height: 40px; */
   position: relative;
 }
 .rain {
