@@ -23,6 +23,7 @@ defineProps({
 svg {
   width: 100%;
   position: relative;
+  margin: auto;
 }
 .rain {
   width: 2px;

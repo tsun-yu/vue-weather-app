@@ -1,15 +1,10 @@
 <script setup>
 // import dayjs from "dayjs";
 import { ref } from "@vue/reactivity";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
-
-// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-// import { ref, computed } from "@vue/reactivity";
 import RainyIcon from "./components/icons/RainyIcon.vue";
 import SunnyIcon from "./components/icons/SunnyIcon.vue";
 import CloudyIcon from "./components/icons/CloudyIcon.vue";
-library.add(faUserSecret);
+
 let api_key = "625d92b4d8d1889d9ae4efc7172270aa";
 let base_url = "https://api.openweathermap.org/data/2.5/";
 const query = ref("");
@@ -48,8 +43,6 @@ const getData = async () => {
 // const currentDate = computed(() => {
 //   return dayjs().format(`MMMM D YYYY`);
 // });
-
-// getData();
 </script>
 
 <template>
@@ -68,25 +61,6 @@ const getData = async () => {
     <div class="weatherWrap">
       <div
         class="weatherCard"
-        :class="{
-          'weatherCard--first': isFirst(i, results),
-          'weatherCard--last': isLast(i, results),
-          'weatherCard--only': isOnly(results),
-        }"
-      >
-        <div class="icon">
-          <!-- <RainyIcon /> -->
-          <!-- <SunnyIcon /> -->
-          <CloudyIcon />
-        </div>
-        <div class="weatherInfo">
-          <h2>Taipei</h2>
-          <p>April 26 2022</p>
-          <h1>30°C</h1>
-        </div>
-      </div>
-      <!-- <div
-        class="weatherCard"
         v-for="(v, i) of results"
         :class="{
           'weatherCard--first': isFirst(i, results),
@@ -95,10 +69,25 @@ const getData = async () => {
         }"
         :key="i"
       >
-        <h2>{{ v.name }}</h2>
-        <p>{{ currentDate }}</p>
-        <h1>{{ v.main.temp }}°C</h1>
-      </div> -->
+        <div class="icon">
+          <RainyIcon v-if="v.weather[0].main == 'Rain'" />
+          <CloudyIcon v-else-if="v.weather[0].main == 'Drizzle'" />
+          <CloudyIcon v-else-if="v.weather[0].main == 'Clouds'" />
+          <SunnyIcon v-else />
+        </div>
+        <div class="weatherInfo__location">
+          <h2>{{ v.name }}</h2>
+          <!-- <p>April 26 2022</p> -->
+          <p>Feels like: {{ Math.round(v.main.feels_like) }}°</p>
+        </div>
+        <div class="weatherInfo__temp">
+          <h1>{{ Math.round(v.main.temp) }}°C</h1>
+          <div>
+            <p>{{ Math.round(v.main.temp_max) }}°</p>
+            <p>{{ Math.round(v.main.temp_min) }}°</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -150,7 +139,7 @@ const getData = async () => {
 }
 .icon {
   width: 100px;
-  height: 100px;
+  height: 100%;
   font-size: 2rem;
   color: #000;
 }
@@ -160,6 +149,7 @@ const getData = async () => {
 }
 .weatherCard {
   width: 100%;
+  height: 132px;
   border-radius: 0.25rem;
   background-color: #def4fee8;
   color: #036684;
@@ -181,5 +171,24 @@ const getData = async () => {
 .weatherCard:hover {
   background-color: #70bbde;
   color: #fff;
+}
+.weatherInfo__location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 1rem;
+  min-width: 8rem;
+}
+.weatherInfo__temp {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+}
+.weatherInfo__temp h1 {
+  font-size: 3rem;
+  margin-right: 0.5rem;
+}
+.weatherInfo__temp p {
+  margin: 1rem 0;
 }
 </style>
