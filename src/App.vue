@@ -33,18 +33,22 @@ const getData = async () => {
       name: data.name,
       weather: data.weather,
     };
+    obj.main.temp <= 10
+      ? container.value.classList.add("cool")
+      : container.value.classList.remove("cool");
     results.value.unshift(obj);
   } catch (err) {
-    console.log("eee");
+    console.log(err);
   }
 };
+const container = ref(null);
 // const currentDate = computed(() => {
 //   return dayjs().format(`MMMM D YYYY`);
 // });
 </script>
 
 <template>
-  <div class="container">
+  <div ref="container" class="container">
     <div class="searchWrap">
       <input
         type="text"
@@ -100,20 +104,20 @@ const getData = async () => {
   padding: 0;
   box-sizing: border-box;
 }
-#app {
-  background-image: url("./assets/4961757.jpg");
-  background-size: cover;
-  background-position: 50% 0%;
-}
-#app.cool {
-  background-image: url("./assets/6241816.jpg");
-}
+
 .container {
   min-height: 100vh;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("./assets/4961757.jpg");
+  background-size: cover;
+  background-position: 50% 0%;
+  transition: 0.5 ease-in;
+}
+.container.cool {
+  background-image: url("./assets/6241816.jpg");
 }
 .searchWrap {
   width: 100%;
@@ -158,6 +162,10 @@ const getData = async () => {
   margin-bottom: 0.1rem;
   display: flex;
 }
+.cool .weatherCard {
+  background-color: #eff0fee8;
+  color: #4c5a99;
+}
 .weatherCard--first {
   border-radius: 2rem 2rem 0.25rem 0.25rem;
 }
@@ -170,6 +178,9 @@ const getData = async () => {
 .weatherCard:hover {
   background-color: #70bbde;
   color: #fff;
+}
+.cool .weatherCard:hover {
+  background-color: #bec1e4;
 }
 .weatherInfo__location {
   display: flex;
