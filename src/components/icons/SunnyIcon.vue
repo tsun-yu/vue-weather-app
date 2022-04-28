@@ -1,10 +1,4 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-  },
-});
-</script>
+<script setup></script>
 
 <template>
   <svg viewbox="-50 -50 100 100">

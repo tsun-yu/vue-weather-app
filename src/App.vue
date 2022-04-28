@@ -33,20 +33,22 @@ const getData = async () => {
       name: data.name,
       weather: data.weather,
     };
-    console.log(obj);
+    obj.main.temp <= 10
+      ? container.value.classList.add("cool")
+      : container.value.classList.remove("cool");
     results.value.unshift(obj);
-    // console.log(results);
   } catch (err) {
-    console.log("eee");
+    console.log(err);
   }
 };
+const container = ref(null);
 // const currentDate = computed(() => {
 //   return dayjs().format(`MMMM D YYYY`);
 // });
 </script>
 
 <template>
-  <div class="container">
+  <div ref="container" class="container">
     <div class="searchWrap">
       <input
         type="text"
@@ -78,6 +80,7 @@ const getData = async () => {
         <div class="weatherInfo__location">
           <h2>{{ v.name }}</h2>
           <!-- <p>April 26 2022</p> -->
+          <p>{{ v.weather[0].main }}</p>
           <p>Feels like: {{ Math.round(v.main.feels_like) }}°</p>
         </div>
         <div class="weatherInfo__temp">
@@ -101,20 +104,20 @@ const getData = async () => {
   padding: 0;
   box-sizing: border-box;
 }
-#app {
-  background-image: url("./assets/4961757.jpg");
-  background-size: cover;
-  background-position: 50% 0%;
-}
-#app.cool {
-  background-image: url("./assets/6241816.jpg");
-}
+
 .container {
   min-height: 100vh;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("./assets/4961757.jpg");
+  background-size: cover;
+  background-position: 50% 0%;
+  transition: 0.5 ease-in;
+}
+.container.cool {
+  background-image: url("./assets/6241816.jpg");
 }
 .searchWrap {
   width: 100%;
@@ -159,6 +162,10 @@ const getData = async () => {
   margin-bottom: 0.1rem;
   display: flex;
 }
+.cool .weatherCard {
+  background-color: #eff0fee8;
+  color: #4c5a99;
+}
 .weatherCard--first {
   border-radius: 2rem 2rem 0.25rem 0.25rem;
 }
@@ -171,6 +178,9 @@ const getData = async () => {
 .weatherCard:hover {
   background-color: #70bbde;
   color: #fff;
+}
+.cool .weatherCard:hover {
+  background-color: #bec1e4;
 }
 .weatherInfo__location {
   display: flex;
@@ -190,5 +200,29 @@ const getData = async () => {
 }
 .weatherInfo__temp p {
   margin: 1rem 0;
+}
+@media (max-width: 540px) {
+  .weatherWrap {
+    width: 100%;
+  }
+  .weatherInfo__temp {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .weatherInfo__temp div {
+    display: flex;
+  }
+  .weatherInfo__temp p {
+    margin: 0 0.2rem;
+  }
+  .weatherInfo__location {
+    margin: 0;
+    min-width: 0px;
+    margin-left: 0.2rem;
+  }
+  .weatherCard {
+    padding: 0.4rem;
+  }
 }
 </style>
