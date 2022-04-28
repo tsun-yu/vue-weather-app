@@ -33,9 +33,7 @@ const getData = async () => {
       name: data.name,
       weather: data.weather,
     };
-    console.log(obj);
     results.value.unshift(obj);
-    // console.log(results);
   } catch (err) {
     console.log("eee");
   }
@@ -78,6 +76,7 @@ const getData = async () => {
         <div class="weatherInfo__location">
           <h2>{{ v.name }}</h2>
           <!-- <p>April 26 2022</p> -->
+          <p>{{ v.weather[0].main }}</p>
           <p>Feels like: {{ Math.round(v.main.feels_like) }}°</p>
         </div>
         <div class="weatherInfo__temp">
@@ -190,5 +189,29 @@ const getData = async () => {
 }
 .weatherInfo__temp p {
   margin: 1rem 0;
+}
+@media (max-width: 540px) {
+  .weatherWrap {
+    width: 100%;
+  }
+  .weatherInfo__temp {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .weatherInfo__temp div {
+    display: flex;
+  }
+  .weatherInfo__temp p {
+    margin: 0 0.2rem;
+  }
+  .weatherInfo__location {
+    margin: 0;
+    min-width: 0px;
+    margin-left: 0.2rem;
+  }
+  .weatherCard {
+    padding: 0.4rem;
+  }
 }
 </style>
